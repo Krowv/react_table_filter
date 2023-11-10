@@ -38,16 +38,24 @@ function App() {
 
     return true
   })
-
+  
+  /**
+   * Explication de la ligne : 
+   * - La fonction reduce permet de réduire un tableau à une seule valeur
+   * - On prends 2 paramètres dans la fonction callback, max qui est initialisé à 0 précisé en second paramètre et produit qui est la ligne actuelle
+   * - Si produit.price est plus grand que la valeur de max, alors la nouvelle valeur de max est produit.price, sinon la valeur de max reste inchangée
+   * Cette ligne sers à déterminer le prix maximum que contient le tableau afin de le mettre en max dans notre input range
+   */
+  const maxPrice = PRODUCT.reduce((max, produit) => produit.price > max ? produit.price : max,0);
 
   return <div className="container my-3">
-    <SearchBar rangePrice={rangePrice} onRangePriceChange={setRangePrice} search={search} onSearchChange={setSearch} showStockedOnly={showStockedOnly} onStockedOnlychange={setShowStockedOnly}/>
+    <SearchBar maxPrice={maxPrice} rangePrice={rangePrice} onRangePriceChange={setRangePrice} search={search} onSearchChange={setSearch} showStockedOnly={showStockedOnly} onStockedOnlychange={setShowStockedOnly}/>
     <ProductTable products={visibleProduct}/>
   </div>
   
 }
 
-function SearchBar({showStockedOnly, onStockedOnlychange, search, onSearchChange, rangePrice, onRangePriceChange}){
+function SearchBar({showStockedOnly, onStockedOnlychange, search, onSearchChange, rangePrice, onRangePriceChange, maxPrice}){
   return <div>
     <div className="mb-3">
       <Input 
@@ -65,7 +73,7 @@ function SearchBar({showStockedOnly, onStockedOnlychange, search, onSearchChange
       </div>
       <InputRange 
         min={0} 
-        max={10} 
+        max={maxPrice} 
         id="range"
         value={rangePrice}
         onChange={onRangePriceChange}
