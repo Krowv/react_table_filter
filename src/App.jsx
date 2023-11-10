@@ -49,12 +49,14 @@ function SearchBar({showStockedOnly, onStockedOnlychange, search, onSearchChange
         onChange={onSearchChange} 
         placeholder="Rechercher..."
       />
-      <Checkbox 
-        checked={showStockedOnly} 
-        onChange={onStockedOnlychange} 
-        id="stocked" 
-        label="N'afficher que les produits en stock"
-      />
+      <div className="mt-3">
+        <Checkbox 
+          checked={showStockedOnly} 
+          onChange={onStockedOnlychange} 
+          id="stocked" 
+          label="N'afficher que les produits en stock"
+        />
+      </div>
     </div>
   </div>
 }
